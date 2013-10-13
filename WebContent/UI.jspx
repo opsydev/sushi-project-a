@@ -11,78 +11,7 @@
 <title>Sushi - Mortgage Calculator</title>
 
 <link href="style.css" rel="stylesheet"/>
-<script type="text/javascript">
-<![CDATA[
-    var setup = function(){
-	var form = document.getElementById("calculationForm");
-	
-	form.calculate.onclick = function(e){
-		if(validate()){
-			//Let's try to get the result
-			var xmlhttp;
-
-		    if (window.XMLHttpRequest) {
-		    	xmlhttp = new XMLHttpRequest();
-		    	
-		    	
-		    	var p = form.principle.value;
-		    	var a;
-		    	var i = form.interest.value;
-		    	
-		    	//Get the amortization value
-		    	for(var l in form.amortization){
-		    		if(form.amortization[l].checked) a=form.amortization[l].value;	
-		    	}
-		    	
-		    	//Setup the URL
-		    	var url = form.action + "?format=json&calculate=calculate&interest="+i+"&principle="+p+"&amortization="+a;
-		    	
-		    	xmlhttp.onreadystatechange = function() {
-		            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-		       
-		                document.getElementById("result").innerHTML = "<p>Based on the information provided, your monthly payment is:</p>"+xmlhttp.responseText;
-		                document.getElementById("result").style.display = "block";
-		            }
-		        };
-
-		        xmlhttp.open("GET", url, true);
-		        xmlhttp.send();
-
-				e.preventDefault;
-				return false;
-		    	
-		    } else {
-		    	// Rely on plain old form submition
-		        return;
-		    }
-
-		    
-		}
-		
-	};
-};
-
-function validate(){
-	var form = document.getElementById("calculationForm");
-	var p = document.getElementById("principle").value;
-	if(!Number(p) || Number(p)===i){
-		alert("Principle is not valid");
-		return false;
-	}
-	
-	var i = document.getElementById("interest").value;
-	if(!Number(i) || Number(i)===i){
-		alert("Interest is not valid");
-		return false;
-	}
-	//Check if amortization is selected
-	
-	return true;
-	
-	
-}
-]]>
-</script>
+<script type="text/javascript" src="ui.js">;</script>
 </head>
 <body onload="setup()">
 <c:if test="${not empty flash_errors}">
@@ -97,12 +26,17 @@ function validate(){
 		<label for="principle">
 		Principle		
 		<input type="text" id="principle" name="principle" value="${sessionScope.principle}"/>
+		<p id="principle_error" class="error">*</p>
 		</label>
+		
 				
 		<label for="interest">
 		Interest
 		<input type="text" id="interest" name="interest" value="${sessionScope.interest}"/>
+		<p id="interest_error" class="error">*</p>
 		</label>
+		
+		
 		<label for="amortization">Amortization<br/>
 		<c:forEach items="20,25,30" var="amor">
 			<c:choose>

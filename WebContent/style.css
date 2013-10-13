@@ -472,6 +472,12 @@ button[type="submit"] {
 	display:none;
 }
 
+.error {
+	color:#ff0;
+	display: none;
+	margin: 0;
+}
+
 /********************* HELPERS ****************/
 .clearfix:before,
 .clearfix:after {

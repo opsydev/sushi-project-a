@@ -52,18 +52,10 @@ public class Throttle implements Filter {
 			String reqIP = req.getRemoteAddr();
 			Long lastTime = req.getSession(false).getLastAccessedTime()/1000;
 			Long currentTime = System.currentTimeMillis()/1000;
-			System.out.println("lastTIme: " + lastTime);
-			System.out.println("currIme: " + currentTime);
 			if((currentTime-lastTime) < 5){
 				resp.sendRedirect("retry.jspx");
 				return;
 			} 
-//			else{
-//				chain.doFilter(request, response);
-//			}
-		
-			
-			
 		
 		}catch (Exception e){
 			//Not worry about other requests
