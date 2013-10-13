@@ -15,7 +15,7 @@
 <div class="container">
 	<h1>Oops!</h1>
 	<p>The page you are looking for cannot be found</p>
-	<p>Perhpas you were looking for the <a href="/FinalProject/Start">Mortgage Calculator</a></p>
+	<p>Perhaps you were looking for the <a href="Start">Mortgage Calculator</a></p>
 </div>
 </body>
 </html>

@@ -39,7 +39,8 @@
 		    	
 		    	xmlhttp.onreadystatechange = function() {
 		            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-		                document.getElementById("monthly-payment").innerHTML = "$"+xmlhttp.responseText;
+		       
+		                document.getElementById("result").innerHTML = "<p>Based on the information provided, your monthly payment is:</p>"+xmlhttp.responseText;
 		                document.getElementById("result").style.display = "block";
 		            }
 		        };
@@ -118,8 +119,7 @@ function validate(){
 	</form>
 	
 	<div id="result">
-		<p>Based on the information provided, your monthly payment is:</p>
-		<p id="monthly-payment"></p>
+		
 	</div>
 	
 </div>

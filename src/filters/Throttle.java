@@ -13,18 +13,17 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-
-import com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet Filter implementation class Throttle
  */
 @WebFilter(dispatcherTypes = {
-				DispatcherType.REQUEST, 
-				DispatcherType.FORWARD
+				DispatcherType.REQUEST
+				
 		}
 					, urlPatterns = { "/Throttle", "/Start" }, servletNames = { "Start" })
-public class Throttle implements Filter {
+public class Throttle implements Filter {	
 
     /**
      * Default constructor. 
@@ -45,25 +44,32 @@ public class Throttle implements Filter {
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-//		try{
-//			HttpServletRequest req = (HttpServletRequest) request;
-//			
-//			//Let's get the current IP
-//			String reqIP = req.getRemoteAddr();
-//			Long lastTime = req.getSession().getLastAccessedTime()/1000;
-//			Long currentTime = System.currentTimeMillis()/1000;
-//			
-//			if((currentTime-lastTime) > 5){
-//				req.getRequestDispatcher("/retry.jspx").forward(request, response);
+		try{
+			HttpServletRequest req = (HttpServletRequest) request;
+			HttpServletResponse resp = (HttpServletResponse) response;
+			
+			//Let's get the current IP
+			String reqIP = req.getRemoteAddr();
+			Long lastTime = req.getSession(false).getLastAccessedTime()/1000;
+			Long currentTime = System.currentTimeMillis()/1000;
+			System.out.println("lastTIme: " + lastTime);
+			System.out.println("currIme: " + currentTime);
+			if((currentTime-lastTime) < 5){
+				resp.sendRedirect("retry.jspx");
+				return;
+			} 
+//			else{
+//				chain.doFilter(request, response);
 //			}
-//		
-//		
-//		}catch (Exception e){
-//			//Not worry about other requests
-//		}
 		
-		// pass the request along the filter chain
+			
+			
+		
+		}catch (Exception e){
+			//Not worry about other requests
+		}
 		chain.doFilter(request, response);
+		
 	}
 
 	/**

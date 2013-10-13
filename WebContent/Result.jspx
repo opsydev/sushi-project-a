@@ -20,7 +20,7 @@
 	<h1>Mortgage Calculator</h1>
 	<h3 class="subheader">Based on the information provided by you, your monthly payment is: <span class="white">$${ pay }</span></h3>
 	<p>Want to try a different interest rate? Just use the form below:</p>
-	<form role="form" method="get" action="/FinalProject/Start"  id="calculationForm">
+	<form role="form" method="get" action="Start"  id="calculationForm">
 		<label for="new_interest">New Interest:
 			<input type="text" name="interest"/>
 		</label>	
