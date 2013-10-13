@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"  version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="false"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Sushi - Mortgage Calculator</title>
+
+<link href="/FinalProject/style.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container" id="flash">
+
+</div>
+<div class="container" id="main-content">
+	<h1>Mortgage Calculator</h1>
+	<h3 class="subheader">Based on the information provided by you, your monthly payment is: <span class="white">$${ pay }</span></h3>
+	<p>Want to try a different interest rate? Just use the form below:</p>
+	<form role="form" method="get" action="/FinalProject/Start"  id="calculationForm">
+		<label for="new_interest">New Interest:
+			<input type="text" name="interest"/>
+		</label>	
+		<button type="submit" name="calculate" value="calculate">Re-Compute Payment</button>
+	</form>
+</div>
+
+</body>
+</html>
+</jsp:root>

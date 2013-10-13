@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core"  version="2.0">
+	<jsp:directive.page contentType="text/html; charset=UTF-8" 
+		pageEncoding="UTF-8" session="true"/>
+	<jsp:output doctype-root-element="html"
+		doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"
+		omit-xml-declaration="true" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Sushi - Mortgage Calculator</title>
+
+<link href="/FinalProject/style.css" rel="stylesheet"/>
+<script type="text/javascript">
+<![CDATA[
+    var setup = function(){
+	var form = document.getElementById("calculationForm");
+	
+	form.calculate.onclick = function(e){
+		if(validate()){
+			//Let's try to get the result
+			var xmlhttp;
+
+		    if (window.XMLHttpRequest) {
+		    	xmlhttp = new XMLHttpRequest();
+		    	
+		    	
+		    	var p = form.principle.value;
+		    	var a;
+		    	var i = form.interest.value;
+		    	
+		    	//Get the amortization value
+		    	for(var l in form.amortization){
+		    		if(form.amortization[l].checked) a=form.amortization[l].value;	
+		    	}
+		    	
+		    	//Setup the URL
+		    	var url = form.action + "?format=json&calculate=calculate&interest="+i+"&principle="+p+"&amortization="+a;
+		    	
+		    	xmlhttp.onreadystatechange = function() {
+		            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		                document.getElementById("monthly-payment").innerHTML = "$"+xmlhttp.responseText;
+		                document.getElementById("result").style.display = "block";
+		            }
+		        };
+
+		        xmlhttp.open("GET", url, true);
+		        xmlhttp.send();
+
+				e.preventDefault;
+				return false;
+		    	
+		    } else {
+		    	// Rely on plain old form submition
+		        return;
+		    }
+
+		    
+		}
+		
+	};
+};
+
+function validate(){
+	var form = document.getElementById("calculationForm");
+	var p = document.getElementById("principle").value;
+	if(!Number(p) || Number(p)===i){
+		alert("Principle is not valid");
+		return false;
+	}
+	
+	var i = document.getElementById("interest").value;
+	if(!Number(i) || Number(i)===i){
+		alert("Interest is not valid");
+		return false;
+	}
+	//Check if amortization is selected
+	
+	return true;
+	
+	
+}
+]]>
+</script>
+</head>
+<body onload="setup()">
+<c:if test="${not empty flash_errors}">
+<div class="container" id="flash">
+	<p>${ flash_errors }</p>	
+</div>
+</c:if>
+<div class="container" id="main-content">
+	<h1>Mortgage Calculator filter: ${filter }</h1>
+	<h3 class="subheader">Please fill out the form below.</h3>
+	<form role="form" method="get" action="/FinalProject/Start"  id="calculationForm">
+		<label for="principle">
+		Principle		
+		<input type="text" id="principle" name="principle" value="${sessionScope.principle}"/>
+		</label>
+				
+		<label for="interest">
+		Interest
+		<input type="text" id="interest" name="interest" value="${sessionScope.interest}"/>
+		</label>
+		<label for="amortization">Amortization<br/>
+		<c:forEach items="20,25,30" var="amor">
+			<c:choose>
+			<c:when test="${sessionScope.amortization eq amor}">
+				<label><input type="radio" name="amortization" value="${amor }" checked="true"/> ${amor }</label>
+			</c:when>
+			<c:otherwise>
+				<label><input type="radio" name="amortization" value="${amor }"/> ${amor }</label>
+			</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		</label>
+		<button type="submit" name="calculate" value="calculate">Compute Payment</button>
+	</form>
+	
+	<div id="result">
+		<p>Based on the information provided, your monthly payment is:</p>
+		<p id="monthly-payment"></p>
+	</div>
+	
+</div>
+
+</body>
+</html>
+</jsp:root>
