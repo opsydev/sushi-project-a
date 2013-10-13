@@ -10,7 +10,7 @@
 <head>
 <title>Sushi - Mortgage Calculator</title>
 
-<link href="/FinalProject/style.css" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container" id="flash">

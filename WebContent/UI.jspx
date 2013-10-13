@@ -10,7 +10,7 @@
 <head>
 <title>Sushi - Mortgage Calculator</title>
 
-<link href="/FinalProject/style.css" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
 <script type="text/javascript">
 <![CDATA[
     var setup = function(){
@@ -92,7 +92,7 @@ function validate(){
 <div class="container" id="main-content">
 	<h1>Mortgage Calculator filter: ${filter }</h1>
 	<h3 class="subheader">Please fill out the form below.</h3>
-	<form role="form" method="get" action="/FinalProject/Start"  id="calculationForm">
+	<form role="form" method="get" action="Start"  id="calculationForm">
 		<label for="principle">
 		Principle		
 		<input type="text" id="principle" name="principle" value="${sessionScope.principle}"/>
